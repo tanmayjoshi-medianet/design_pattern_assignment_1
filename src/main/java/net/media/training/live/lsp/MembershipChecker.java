@@ -12,8 +12,8 @@ import java.util.List;
  */
 public class MembershipChecker {
 
-    public static boolean check(List elements, Set uniqueElements) {
-        for (Object element : elements) {
+    public static <T> boolean check(List<T> elements, CustomSet<T> uniqueElements) {
+        for (T element : elements) {
             if (!uniqueElements.isMember(element))
                 return false;
         }
@@ -21,24 +21,24 @@ public class MembershipChecker {
     }
 
     public static void main(String[] args) {
-        List elements = new ArrayList() {{
-            add("a");
-            add("b");
-            add("c");
-        }};
+        List<String> elements = new ArrayList<>();
+        elements.add("a");
+        elements.add("b");
+        elements.add("c");
 
-        Set<String> uniqueElements = new PersistentSet<String>();
+
+        CustomSet<String> uniqueElements = new PersistentSet<String>();
         uniqueElements.add("c");
         uniqueElements.add("b");
         uniqueElements.add("a");
 
         System.out.println("Check1: " + MembershipChecker.check(elements, uniqueElements));
 
-        List anotherElements = new ArrayList() {{
-            add("a");
-            add("c");
-            add("d");
-        }};
+        List<String> anotherElements = new ArrayList<>();
+        anotherElements.add("a");
+        anotherElements.add("c");
+        anotherElements.add("d");
+
         System.out.println("Check2: " + MembershipChecker.check(anotherElements, uniqueElements));
     }
 }

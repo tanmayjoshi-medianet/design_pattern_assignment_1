@@ -14,10 +14,21 @@ import java.util.Base64;
  * To change this template use File | Settings | File Templates.
  */
 public class EncodingModule {
+
+    private String inputFile;
+    private String outputFile;
+    private MyDatabase database;
+
+    public EncodingModule(String inputFile, String outputFile, MyDatabase database) {
+        this.inputFile = inputFile;
+        this.outputFile = outputFile;
+        this.database = database;
+    }
+
     public void encodeWithFiles() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("/Users/goyalamit/Sandbox/training/src/solid_2011/live/dip/beforeEncryption.txt"));
-            BufferedWriter writer = new BufferedWriter(new FileWriter("/Users/goyalamit/Sandbox/training/src/solid_2011/live/dip/afterEncryption.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
             String aLine;
             while ((aLine = reader.readLine()) != null) {
                 String encodedLine = Base64.getEncoder().encodeToString(aLine.getBytes());
@@ -26,9 +37,7 @@ public class EncodingModule {
             writer.flush();
             writer.close();
             reader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -60,7 +69,6 @@ public class EncodingModule {
         }
         String inputString = inputString1.toString();
         String encodedString = Base64.getEncoder().encodeToString(inputString.getBytes());
-        MyDatabase database = new MyDatabase();
         database.write(encodedString);
     }
 }

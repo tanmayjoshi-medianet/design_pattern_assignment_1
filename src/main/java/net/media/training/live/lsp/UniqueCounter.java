@@ -8,13 +8,13 @@ package net.media.training.live.lsp;
  * To change this template use File | Settings | File Templates.
  */
 public class UniqueCounter {
-    private Set elements;
+    private CustomSet<Object> elements;
 
-    public UniqueCounter(Set elements) {
+    public UniqueCounter(CustomSet<Object> elements) {
         this.elements = elements;
     }
 
-    public int execute()
+    public int countUniqueElements()
     {
         elements.add("hello");
         elements.add(1);
@@ -26,6 +26,6 @@ public class UniqueCounter {
 
     public static void main(String[] args) {
         UniqueCounter counter = new UniqueCounter(new PersistentSet());
-        System.out.println(counter.execute());
+        System.out.println(counter.countUniqueElements());
     }
 }
